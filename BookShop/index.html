@@ -16,19 +16,43 @@
         height: 38px;
         padding: 0 11px;
     }
+
+    .search-btn{
+        width: 60px;
+        height: 38px;
+        padding: 0 11px;
+    }
     
     .submit-input {
         position: absolute;
         clip: rect(0 0 0 0);
     }
     
-    .iconfont {
-        font-family: qd_iconfont!important;
-        font-size: 24px;
+    .float-left {
+        float: left;
+    }
+    
+    @font-face {
+        font-family: "iconfont";
+        src: url('iconfont.eot?t=1495013173281');
+        /* IE9*/
+        src: url('iconfont.eot?t=1495013173281#iefix') format('embedded-opentype'), /* IE6-IE8 */
+        url('iconfont.woff?t=1495013173281') format('woff'), /* chrome, firefox */
+        url('iconfont.ttf?t=1495013173281') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+        url('iconfont.svg?t=1495013173281#iconfont') format('svg');
+        /* iOS 4.1- */
+    }
+    
+    .iconfontyyy {
+        font-family: "iconfont" !important;
+        font-size: 16px;
         font-style: normal;
         -webkit-font-smoothing: antialiased;
-        -webkit-text-stroke-width: .1px;
         -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .icon-search:before {
+        content: "\e60f";
     }
     
     .logo-wrap .book-shelf .search-btn,
@@ -49,19 +73,31 @@
         height: 38px;
         border: 1px solid #e6e6e6;
     }
+    
     .mybook-a:link {
         text-decoration: none;
     }
+    
     .mybook-a:visited {
         text-decoration: none;
     }
+    
     .mybook-a:hover {
         text-decoration: none;
     }
+    
     .mybook-a:active {
         text-decoration: none;
     }
-    i{
+    
+    .blackBorder {
+        border: #124 1px;
+        outline: solid;
+        outline-color: #000;
+        outline-width: 2px;
+    }
+    
+    i {
         font-style: normal;
     }
     </style>
@@ -76,8 +112,8 @@
                     <li><a target="_blank" href="http://www.liaoxuefeng.com/">起飞女生网</a></li>
                     <li><a target="_blank" href="https://github.com/michaelliao/learn-javascript">书架</a></li>
                     <li><a target="_blank" href="http://getbootstrap.com/">收藏</a></li>
-                    <li><a id="login" name="login">登陆</a></li>
-                    <li><a id="register" name="register">注册</a></li>
+                    <li><a id="login" name="login" onclick="login(event)">登陆</a></li>
+                    <li><a id="register" name="register" onclick="register(event)">注册</a></li>
                 </ul>
             </nav>
         </div>
@@ -86,31 +122,19 @@
         <div style="width:1200px;margin-right: auto;margin-left: auto;position: relative;zoom:1">
             <img src="./logo.jpg" style="margin: 0 184px 0 0;float: left;" />
             <form style="float: left;margin: 0 auto;text-align: center;padding: 15px 0;">
-                <p>
-                    <input id="search" type="text" name="search" class="search-box" placeholder="搜索小说" />
-                </p>
-                <input class="submit-input" type="submit" id="searchSubmit">
-                <label class="search-btn" for="searchSubmit" id="searchBtn">
-                    <em class="iconfont" data-eid="qd_A13"></em>
-                </label>
+                <input id="search" type="text" name="search" class="search-box float-left" placeholder="搜索小说" />
+                <input class="float-left search-btn" type="submit" id="searchSubmit" value="搜索" />
             </form>
-            <div id="mybook-div" style="float: right;padding: 10px 0;border: 1px" >
+            <div id="mybook-div" style="float: right;padding: 10px 0;border: 1px">
                 <a href="//me.qidian.com/bookCase/bookCase.aspx?caseId=-2" target="_blank" class="mybook-a">
-                    <em class="iconfont shelf"></em>
                     <i>我的书架</i>
                 </a>
-                <!-- <input id="myBook" type="submit" value="我的书架" onclick="onMyBookClick(event)"  /> -->
             </div>
         </div>
     </div>
     </br>
     <footer style="background-color:#ddd; padding: 20px 0;margin-top: 20px">
         <div class="container">
-            <p>
-                <a target="_blank" href="http://www.liaoxuefeng.com/">Website</a> -
-                <a target="_blank" href="https://github.com/michaelliao/learn-javascript">GitHub</a> -
-                <a target="_blank" href="http://weibo.com/liaoxuefeng">Weibo</a>
-            </p>
             <p>This JavaScript course is created by <a target="_blank" href="http://weibo.com/liaoxuefeng">@wcx</a>.</p>
             <p>Code licensed <a target="_blank" href="https://github.com/michaelliao/learn-javascript/blob/master/LICENSE">Apache</a>.</p>
         </div>
@@ -119,6 +143,13 @@
 <script type="text/javascript">
 function onMyBookClick(event) {
     alert("点击了");
+}
+function login(e){
+
+}
+
+function register(e){
+    
 }
 </script>
 
