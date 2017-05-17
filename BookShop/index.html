@@ -9,6 +9,62 @@
     <meta name="keywords" content="">
     <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
     <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+    <style type="text/css">
+    .search-box {
+        font: 14px/38px PingFangSC-Regular, '-apple-system', Simsun;
+        width: 326px;
+        height: 38px;
+        padding: 0 11px;
+    }
+    
+    .submit-input {
+        position: absolute;
+        clip: rect(0 0 0 0);
+    }
+    
+    .iconfont {
+        font-family: qd_iconfont!important;
+        font-size: 24px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-stroke-width: .1px;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .logo-wrap .book-shelf .search-btn,
+    .logo-wrap .search-wrap .search-btn {
+        float: left;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        background-color: #bf2c24;
+    }
+    
+    .mybook-a {
+        font: 14px/1 PingFangSC-Regular, '-apple-system', Simsun;
+        text-align: center;
+        display: block;
+        text-decoration: none;
+        width: 118px;
+        height: 38px;
+        border: 1px solid #e6e6e6;
+    }
+    .mybook-a:link {
+        text-decoration: none;
+    }
+    .mybook-a:visited {
+        text-decoration: none;
+    }
+    .mybook-a:hover {
+        text-decoration: none;
+    }
+    .mybook-a:active {
+        text-decoration: none;
+    }
+    i{
+        font-style: normal;
+    }
+    </style>
 </head>
 
 <body>
@@ -26,16 +82,29 @@
             </nav>
         </div>
     </header>
-    <div id="important" style="color:#cdbfe3; background-color:#fff; padding:30px 0; margin:-20px 0 20px 0;">
-        <div style="text-align: center;">
-            <img src="./logo.jpg" style="margin: 0 auto;float: left;">
-        </div>
-        <div class="container">
-            <h1 style="color:#fff; font-size:60px">Getting started</h1>
-            <p style="font-size:24px; line-height:48px">Learn JavaScript, Node.js, npm, koa2, nunjucks, babel, etc. at liaoxuefeng.com.</p>
+    <div id="important" style="color:#cdbfe3; background-color:#fff; padding:30px 0; margin:20px 0 20px 0;">
+        <div style="width:1200px;margin-right: auto;margin-left: auto;position: relative;zoom:1">
+            <img src="./logo.jpg" style="margin: 0 184px 0 0;float: left;" />
+            <form style="float: left;margin: 0 auto;text-align: center;padding: 15px 0;">
+                <p>
+                    <input id="search" type="text" name="search" class="search-box" placeholder="搜索小说" />
+                </p>
+                <input class="submit-input" type="submit" id="searchSubmit">
+                <label class="search-btn" for="searchSubmit" id="searchBtn">
+                    <em class="iconfont" data-eid="qd_A13"></em>
+                </label>
+            </form>
+            <div id="mybook-div" style="float: right;padding: 10px 0;border: 1px" >
+                <a href="//me.qidian.com/bookCase/bookCase.aspx?caseId=-2" target="_blank" class="mybook-a">
+                    <em class="iconfont shelf"></em>
+                    <i>我的书架</i>
+                </a>
+                <!-- <input id="myBook" type="submit" value="我的书架" onclick="onMyBookClick(event)"  /> -->
+            </div>
         </div>
     </div>
-    <footer style="background-color:#ddd; padding: 20px 0;">
+    </br>
+    <footer style="background-color:#ddd; padding: 20px 0;margin-top: 20px">
         <div class="container">
             <p>
                 <a target="_blank" href="http://www.liaoxuefeng.com/">Website</a> -
@@ -47,5 +116,10 @@
         </div>
     </footer>
 </body>
+<script type="text/javascript">
+function onMyBookClick(event) {
+    alert("点击了");
+}
+</script>
 
 </html>
