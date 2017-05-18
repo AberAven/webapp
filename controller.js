@@ -1,3 +1,7 @@
+/**
+ * 处理url映射
+ */
+
 const fs = require('fs');
 
 // add url-route in /controllers:
@@ -27,10 +31,15 @@ function addMapping(router, mapping) {
 }
 
 function addControllers(router, dir) {
-    fs.readdirSync(__dirname + '/' + dir).filter((f) => {
+    //读取controllers文件夹下的js文件
+    fs
+    .readdirSync(__dirname + '/' + dir).filter((f) => {
         return f.endsWith('.js');
-    }).forEach((f) => {
+    })
+    //对于每个文件 require每个文件暴露出来的函数
+    .forEach((f) => {
         console.log(`process controller: ${f}...`);
+        //处理函数
         let mapping = require(__dirname + '/' + dir + '/' + f);
         addMapping(router, mapping);
     });

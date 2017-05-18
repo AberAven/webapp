@@ -1,8 +1,10 @@
 var config = {
-    database: 'production',
+    dialect: 'mysql',
+    database: 'test',
     username: 'www',
-    password: 'secret-password',
-    host: '192.168.1.199'
+    password: 'www',
+    host: 'localhost',
+    port: 3306
 };
 
 module.exports = config;

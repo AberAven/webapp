@@ -31,7 +31,7 @@ app.use(async (ctx, next) => {
 });
 
 //2、处理静态文件
-if (! isProduction) {
+if (!isProduction) {
     let staticFiles = require('./static-files');
     app.use(staticFiles('/static/', __dirname + '/static'));
 }
@@ -40,15 +40,34 @@ if (! isProduction) {
 app.use(bodyParser());
 
 //4、给ctx加上render()来使用Nunjucks
-//加载view ‘views’放置view的文件夹
+//加载view ‘views’放置view的文件夹 加载模板
 app.use(templating('views', {
-    noCache: false,
+    noCache: !isProduction,
     watch: !isProduction
 }));
 
-//5、使用middleware:
+//5、使用middleware:添加controller
 app.use(controller());
 
 //监听3000端口
-app.listen(8080);
+app.listen(3000);
 console.log('app started at port 3000...');
+
+// const User = require('./models/user');
+
+// var now = Date.now();
+
+// (async () => {
+//     await User.create({
+//         id: 'g-' + now,
+//         email: 'admin@example.com',
+//         password: '123456',
+//         name: 'jane',
+//         gender: false,
+//         birth: '2007-07-07',
+//         author: true,
+//         createdAt: now,
+//         updatedAt: now,
+//         version: 0
+//     });
+// })();
