@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="learn javascript by www.liaoxuefeng.com">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <script src="./static/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/js/bootstrap.js"></script>
+    <style type="text/css">
+    body {
+        position: relative;
+    }
+    
+    .login-box {
+        margin: 40px auto;
+        width: 400px;
+        height: 200px;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%,0);
+    }
+    </style>
+</head>
+
+<body>
+    <div class="col-md-6 login-box">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> 请登录</h3>
+            </div>
+            <div class="panel-body">
+                <form action="/signin" method="post">
+                    <div class="form-group">
+                        <label>用户名</label>
+                        <input type="email" name="email" class="form-control" placeholder="Email">
+                        <p class="help-block">用户名: admin@example.com</p>
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input type="password" name="password" class="form-control" placeholder="Password">
+                        <p class="help-block">密码: 123456</p>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">登陆</button>
+                        <a id="login-cancel" type="text" class="btn btn-primary" href="/register">注册</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>

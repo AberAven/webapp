@@ -5,101 +5,118 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>BookShop</title>
-    <meta name="description" content="">
-    <meta name="keywords" content="">
+    <meta name="description" content="book shop">
+    <meta name="keywords" content="书城">
     <link rel="stylesheet" type="text/css" href="./bootstrap.css">
+    <script src="./jquery.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#login').click(function () {
+                console.log('dianji');
+                $('#login-box').show();
+            });
+            $('#login-cancel').click(function () {
+                $('#login-box').hide();
+            });
+            $('#login-box').easydrag();
+        });
+    </script>
     <style type="text/css">
-    .search-box {
-        font: 14px/38px PingFangSC-Regular, '-apple-system', Simsun;
-        width: 326px;
-        height: 38px;
-        padding: 0 11px;
-    }
+        .search-box {
+            font: 14px/38px PingFangSC-Regular, '-apple-system', Simsun;
+            width: 326px;
+            height: 38px;
+            padding: 0 11px;
+        }
 
-    .search-btn{
-        width: 60px;
-        height: 38px;
-        padding: 0 11px;
-    }
-    
-    .submit-input {
-        position: absolute;
-        clip: rect(0 0 0 0);
-    }
-    
-    .float-left {
-        float: left;
-    }
-    
-    @font-face {
-        font-family: "iconfont";
-        src: url('iconfont.eot?t=1495013173281');
-        /* IE9*/
-        src: url('iconfont.eot?t=1495013173281#iefix') format('embedded-opentype'), /* IE6-IE8 */
-        url('iconfont.woff?t=1495013173281') format('woff'), /* chrome, firefox */
-        url('iconfont.ttf?t=1495013173281') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-        url('iconfont.svg?t=1495013173281#iconfont') format('svg');
-        /* iOS 4.1- */
-    }
-    
-    .iconfontyyy {
-        font-family: "iconfont" !important;
-        font-size: 16px;
-        font-style: normal;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-    
-    .icon-search:before {
-        content: "\e60f";
-    }
-    
-    .logo-wrap .book-shelf .search-btn,
-    .logo-wrap .search-wrap .search-btn {
-        float: left;
-        width: 40px;
-        height: 40px;
-        text-align: center;
-        background-color: #bf2c24;
-    }
-    
-    .mybook-a {
-        font: 14px/1 PingFangSC-Regular, '-apple-system', Simsun;
-        text-align: center;
-        display: block;
-        text-decoration: none;
-        width: 118px;
-        height: 38px;
-        border: 1px solid #e6e6e6;
-    }
-    
-    .mybook-a:link {
-        text-decoration: none;
-    }
-    
-    .mybook-a:visited {
-        text-decoration: none;
-    }
-    
-    .mybook-a:hover {
-        text-decoration: none;
-    }
-    
-    .mybook-a:active {
-        text-decoration: none;
-    }
-    
-    .blackBorder {
-        border: #124 1px;
-        outline: solid;
-        outline-color: #000;
-        outline-width: 2px;
-    }
-    
-    i {
-        font-style: normal;
-    }
+        .search-btn {
+            width: 60px;
+            height: 38px;
+            padding: 0 11px;
+        }
+
+        .submit-input {
+            position: absolute;
+            clip: rect(0 0 0 0);
+        }
+
+        .float-left {
+            float: left;
+        }
+
+        @font-face {
+            font-family: "iconfont";
+            src: url('iconfont.eot?t=1495013173281');
+            /* IE9*/
+            src: url('iconfont.eot?t=1495013173281#iefix') format('embedded-opentype'), /* IE6-IE8 */
+            url('iconfont.woff?t=1495013173281') format('woff'), /* chrome, firefox */
+            url('iconfont.ttf?t=1495013173281') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+            url('iconfont.svg?t=1495013173281#iconfont') format('svg');
+            /* iOS 4.1- */
+        }
+
+        .iconfontyyy {
+            font-family: "iconfont" !important;
+            font-size: 16px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .icon-search:before {
+            content: "\e60f";
+        }
+
+        .logo-wrap .book-shelf .search-btn,
+        .logo-wrap .search-wrap .search-btn {
+            float: left;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            background-color: #bf2c24;
+        }
+
+        .mybook-a {
+            font: 14px/1 PingFangSC-Regular, '-apple-system', Simsun;
+            text-align: center;
+            display: block;
+            text-decoration: none;
+            width: 118px;
+            height: 38px;
+            border: 1px solid #e6e6e6;
+        }
+
+        .mybook-a:link {
+            text-decoration: none;
+        }
+
+        .mybook-a:visited {
+            text-decoration: none;
+        }
+
+        .mybook-a:hover {
+            text-decoration: none;
+        }
+
+        .mybook-a:active {
+            text-decoration: none;
+        }
+
+        .blackBorder {
+            border: #124 1px;
+            outline: solid;
+            outline-color: #000;
+            outline-width: 2px;
+        }
+
+        .hidden-login {
+            display: none;
+        }
+
+        i {
+            font-style: normal;
+        }
     </style>
 </head>
 
@@ -112,12 +129,37 @@
                     <li><a target="_blank" href="http://www.liaoxuefeng.com/">起飞女生网</a></li>
                     <li><a target="_blank" href="https://github.com/michaelliao/learn-javascript">书架</a></li>
                     <li><a target="_blank" href="http://getbootstrap.com/">收藏</a></li>
-                    <li><a id="login" name="login" onclick="login(event)">登陆</a></li>
-                    <li><a id="register" name="register" onclick="register(event)">注册</a></li>
+                    <li><a id="login" name="login">登陆</a></li>
+                    <li><a id="register" name="register">注册</a></li>
                 </ul>
             </nav>
         </div>
     </header>
+    <div class="col-md-6 hidden-login" id="login-box">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Please sign in</h3>
+            </div>
+            <div class="panel-body">
+                <form action="/signin" method="post">
+                    <div class="form-group">
+                        <label>Email address</label>
+                        <input type="email" name="email" class="form-control" placeholder="Email">
+                        <p class="help-block">Use email: admin@example.com</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="Password">
+                        <p class="help-block">Use password: 123456</p>
+                    </div>
+                    <div>
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                    <p id="login-cancel" type="text" class="btn btn-primary">Cancel</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div id="important" style="color:#cdbfe3; background-color:#fff; padding:30px 0; margin:20px 0 20px 0;">
         <div style="width:1200px;margin-right: auto;margin-left: auto;position: relative;zoom:1">
             <img src="./logo.jpg" style="margin: 0 184px 0 0;float: left;" />
@@ -141,16 +183,17 @@
     </footer>
 </body>
 <script type="text/javascript">
-function onMyBookClick(event) {
-    alert("点击了");
-}
-function login(e){
+    function onMyBookClick(event) {
+        alert("点击了");
+    }
+    function login(e) {
+        $('#login-box').show();
+    }
 
-}
+    function register(e) {
 
-function register(e){
-    
-}
+    }
+
 </script>
 
 </html>
