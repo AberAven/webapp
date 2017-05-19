@@ -9,119 +9,12 @@
     <meta name="keywords" content="书城">
     <link rel="stylesheet" type="text/css" href="./bootstrap.css">
     <script src="./jquery.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="./mycss.css">
     <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#login').click(function () {
-                console.log('dianji');
-                $('#login-box').show();
-            });
-            $('#login-cancel').click(function () {
-                $('#login-box').hide();
-            });
-            $('#login-box').easydrag();
-        });
-    </script>
-    <style type="text/css">
-        .search-box {
-            font: 14px/38px PingFangSC-Regular, '-apple-system', Simsun;
-            width: 326px;
-            height: 38px;
-            padding: 0 11px;
-        }
-
-        .search-btn {
-            width: 60px;
-            height: 38px;
-            padding: 0 11px;
-        }
-
-        .submit-input {
-            position: absolute;
-            clip: rect(0 0 0 0);
-        }
-
-        .float-left {
-            float: left;
-        }
-
-        @font-face {
-            font-family: "iconfont";
-            src: url('iconfont.eot?t=1495013173281');
-            /* IE9*/
-            src: url('iconfont.eot?t=1495013173281#iefix') format('embedded-opentype'), /* IE6-IE8 */
-            url('iconfont.woff?t=1495013173281') format('woff'), /* chrome, firefox */
-            url('iconfont.ttf?t=1495013173281') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-            url('iconfont.svg?t=1495013173281#iconfont') format('svg');
-            /* iOS 4.1- */
-        }
-
-        .iconfontyyy {
-            font-family: "iconfont" !important;
-            font-size: 16px;
-            font-style: normal;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .icon-search:before {
-            content: "\e60f";
-        }
-
-        .logo-wrap .book-shelf .search-btn,
-        .logo-wrap .search-wrap .search-btn {
-            float: left;
-            width: 40px;
-            height: 40px;
-            text-align: center;
-            background-color: #bf2c24;
-        }
-
-        .mybook-a {
-            font: 14px/1 PingFangSC-Regular, '-apple-system', Simsun;
-            text-align: center;
-            display: block;
-            text-decoration: none;
-            width: 118px;
-            height: 38px;
-            border: 1px solid #e6e6e6;
-        }
-
-        .mybook-a:link {
-            text-decoration: none;
-        }
-
-        .mybook-a:visited {
-            text-decoration: none;
-        }
-
-        .mybook-a:hover {
-            text-decoration: none;
-        }
-
-        .mybook-a:active {
-            text-decoration: none;
-        }
-
-        .blackBorder {
-            border: #124 1px;
-            outline: solid;
-            outline-color: #000;
-            outline-width: 2px;
-        }
-
-        .hidden-login {
-            display: none;
-        }
-
-        i {
-            font-style: normal;
-        }
-    </style>
 </head>
 
 <body>
-    <header class="navbar navbar-static-top">
+    <header class="navbar navbar-static-top" style="background: #F7F7F7;">
         <div class="container">
             <nav class="collapse navbar-collapse" id="bs-navbar">
                 <ul class="nav navbar-nav">
@@ -135,65 +28,134 @@
             </nav>
         </div>
     </header>
-    <div class="col-md-6 hidden-login" id="login-box">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Please sign in</h3>
-            </div>
-            <div class="panel-body">
-                <form action="/signin" method="post">
-                    <div class="form-group">
-                        <label>Email address</label>
-                        <input type="email" name="email" class="form-control" placeholder="Email">
-                        <p class="help-block">Use email: admin@example.com</p>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Password">
-                        <p class="help-block">Use password: 123456</p>
-                    </div>
-                    <div>
-                    <button type="submit" class="btn btn-primary">Sign In</button>
-                    <p id="login-cancel" type="text" class="btn btn-primary">Cancel</p>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <div id="important" style="color:#cdbfe3; background-color:#fff; padding:30px 0; margin:20px 0 20px 0;">
         <div style="width:1200px;margin-right: auto;margin-left: auto;position: relative;zoom:1">
             <img src="./logo.jpg" style="margin: 0 184px 0 0;float: left;" />
-            <form style="float: left;margin: 0 auto;text-align: center;padding: 15px 0;">
+            <form action="/search" style="float: left;margin: 0 auto;text-align: center;padding: 15px 0;">
                 <input id="search" type="text" name="search" class="search-box float-left" placeholder="搜索小说" />
                 <input class="float-left search-btn" type="submit" id="searchSubmit" value="搜索" />
             </form>
-            <div id="mybook-div" style="float: right;padding: 10px 0;border: 1px">
-                <a href="//me.qidian.com/bookCase/bookCase.aspx?caseId=-2" target="_blank" class="mybook-a">
-                    <i>我的书架</i>
-                </a>
+            <div class="mybook-div" id="mybook-div">
+                <div class="center-div">
+                    <a href="" target="_blank">
+                        <label>我的书架</label>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
     </br>
-    <footer style="background-color:#ddd; padding: 20px 0;margin-top: 20px">
+    <div style="width:1200px;margin-right: auto;margin-left: auto;">
+        <div class="classification-div">
+            <table border="1" class="classification-table">
+                <tr>
+                    <td>
+                        <a href="" style="width: 100%;height: 100%;text-align: center">
+                            <table>玄幻</table>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="" style="width: 100%;height: 100%;text-align: center">
+                            <table>奇幻</table>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="" style="width: 100%;height: 100%;text-align: center">
+                            <table>武侠</table>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="" style="width: 100%;height: 100%;text-align: center">
+                            <table>仙侠</table>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="" style="width: 100%;height: 100%;text-align: center">
+                            <table>都市</table>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="" style="width: 100%;height: 100%;text-align: center">
+                            <table>职场</table>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="" style="width: 100%;height: 100%;text-align: center">
+                            <table>军事</table>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="" style="width: 100%;height: 100%;text-align: center">
+                            <table>历史</table>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="" style="width: 100%;height: 100%;text-align: center">
+                            <table>游戏</table>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="" style="width: 100%;height: 100%;text-align: center">
+                            <table>体育</table>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="" style="width: 100%;height: 100%;text-align: center">
+                            <table>科幻</table>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="" style="width: 100%;height: 100%;text-align: center">
+                            <table>灵异</table>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="" style="width: 100%;height: 100%;text-align: center">
+                            <table>女生网</table>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="" style="width: 100%;height: 100%;text-align: center">
+                            <table>二次元</table>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="adimage-div">
+            <img src="./ad_bg.jpg" />
+        </div>
+        <div class="hot-recommendation">
+            <ul>
+                <h3>热门推荐</h3>
+                <li><a href="">haoshu</a></li>
+                <li><a href="">haoshu</a></li>
+                <li><a href="">haoshu</a></li>
+                <li><a href="">haoshu</a></li>
+                <li><a href="">haoshu</a></li>
+                <li><a href="">haoshu</a></li>
+                <li><a href="">haoshu</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- <footer style="background-color:#ddd; padding: 20px 0;margin-top: 20px">
         <div class="container">
             <p>This JavaScript course is created by <a target="_blank" href="http://weibo.com/liaoxuefeng">@wcx</a>.</p>
             <p>Code licensed <a target="_blank" href="https://github.com/michaelliao/learn-javascript/blob/master/LICENSE">Apache</a>.</p>
         </div>
-    </footer>
+    </footer> -->
 </body>
-<script type="text/javascript">
-    function onMyBookClick(event) {
-        alert("点击了");
-    }
-    function login(e) {
-        $('#login-box').show();
-    }
-
-    function register(e) {
-
-    }
-
-</script>
 
 </html>

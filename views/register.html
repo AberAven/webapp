@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/static/css/bootstrap.css">
     <script src="./static/js/jquery.js" type="text/javascript" charset="utf-8"></script>
     <script src="/static/js/bootstrap.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <style type="text/css">
     body {
         position: relative;
@@ -20,7 +21,7 @@
         height: 200px;
         position: absolute;
         left: 50%;
-        transform: translate(-50%,0);
+        transform: translate(-50%, 0);
     }
     </style>
 </head>
@@ -29,30 +30,76 @@
     <div class="col-md-6 login-box">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> 注册</h3>
+                <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> 注册
+                <a href="#" onclick="javascript :history.back(-1);" style="float: right;"><p>X</p></a></h3>
             </div>
             <div class="panel-body">
-                <form action="/signin" method="post">
+                <div>
                     <div class="form-group">
                         <label>用户名</label>
-                        <input type="email" name="email" class="form-control" placeholder="Email">
+                        <input type="email" name="email" class="form-control" placeholder="Email" required="require">
                         <p class="help-block">用户名: admin@example.com</p>
                     </div>
                     <div class="form-group">
                         <label>密码</label>
-                        <input type="password" name="password" class="form-control" placeholder="Password">
+                        <input type="password" name="password" class="form-control" placeholder="Password" required="require">
                         <p class="help-block">密码: 123456</p>
                     </div>
                     <div class="form-group">
                         <label>确认密码</label>
-                        <input type="password" name="confirm-password" class="form-control" placeholder="Password">
+                        <input type="password" name="confirm-password" class="form-control" placeholder="Password" required="require">
                         <p class="help-block">密码: 123456</p>
                     </div>
-                    <div>
-                        <button type="submit" class="btn btn-primary">注册</button>
+                    <div class="form-group">
+                        <label>选择账户类型</label>
+                        </br>
+                        <label style="margin-right: 20px">
+                            <input type="radio" name="author" value="0">普通用户</label>
+                        <label>
+                            <input type="radio" name="author" value="1">作者</label>
                     </div>
-                </form>
+                    <div>
+                        <button type="text" class="btn btn-primary" onclick="register()">注册</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </body>
+<script type="text/javascript">
+function register() {
+    var
+        _email = $("input[name='email']").val(),
+        _password = $("input[name='password']").val(),
+        _confirmPassword = $("input[name='confirm-password']").val(),
+        _author;
+    var
+        // normal_user = $("input[name='author']").val(),
+        author = $("input[name='author']:checked").val();
+        console.log(" "+author);
+    if (!author) {
+        alert("请选择用户类型！");
+        return;
+    }
+    if (_password != _confirmPassword) {
+        alert("两次输入的密码不一样");
+        return;
+    }
+    axios.post('/register', {
+            email: _email,
+            password: _password,
+            author: _author
+        })
+        .then(function(response) {
+            if (response.data.result = 'ok') {
+                alert("注册成功");
+            }
+            console.log(response);
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+}
+</script>
+
+</html>

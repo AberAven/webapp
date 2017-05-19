@@ -1,0 +1,62 @@
+
+/*我的收藏*/
+.mybook-div {
+    width: 100px;
+    height: 40px;
+    float: right;
+    text-align: center;
+    border: 1px solid gray;
+}
+
+.mybook-div:hover {
+    width: 100px;
+    height: 40px;
+    float: right;
+    text-align: center;
+    border: 1px solid gray;
+    background: #f0f0f0;
+}
+
+/*居中*/
+.center-div {
+	margin: 9px auto;
+}
+
+/*分类*/
+.classification-div{
+	 margin:20px 0 20px 0;
+	 width: 18%;
+	 float: left;
+	 background: #F7F7F7;
+}
+
+.classification-table{
+	width: 100%;
+	text-align: center;
+}
+
+/*中间图片*/
+.adimage-div{
+	margin:20px 10px 20px 10px;
+	width: 60%;
+	float: left;
+}
+
+/*热门推荐*/
+.hot-recommendation{
+	border: 1px solid gray;
+	margin:20px 0 0 25px;
+	width: 18%;
+	float: left;
+	background: #F7F7F7;
+}
+
+li{
+	line-height: 40px;
+}
+
+tr{
+	height: 50px;
+}
+
+

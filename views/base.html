@@ -4,36 +4,32 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="learn javascript by www.liaoxuefeng.com">
+    <meta name="description" content="book shop">
+    <meta name="keywords" content="书城">
     <title>{{ title }}</title>
     <link rel="stylesheet" href="/static/css/bootstrap.css">
-    <script src="./static/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/js/jquery.js" type="text/javascript" charset="utf-8"></script>
     <script src="/static/js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/mycss.css">
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
 </head>
 
 <body>
-    <header class="navbar navbar-static-top">
+    <header class="navbar navbar-static-top" style="background: #F7F7F7;">
         <div class="container">
-            <div class="navbar-header">
-                <a href="/" class="navbar-brand">Learn JavaScript</a>
-            </div>
             <nav class="collapse navbar-collapse" id="bs-navbar">
                 <ul class="nav navbar-nav">
-                    <li><a target="_blank" href="http://www.liaoxuefeng.com/">Get Courses</a></li>
-                    <li><a target="_blank" href="https://github.com/michaelliao/learn-javascript">Source Code</a></li>
-                    <li><a target="_blank" href="http://getbootstrap.com/">Resource</a></li>
+                    <li><a href="#">起飞小说网</a></li>
+                    <li><a target="_blank" href="/collect">收藏</a></li>
+                    <li><a id="login" name="login" href="/login">登陆</a></li>
+                    <li><a id="register" name="register" href="/register">注册</a></li>
+                    <li><a id="add_book" name="addBook" href="/add_book">上架图书</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-    <div id="important" style="color:#cdbfe3; background-color:#6f5499; padding:30px 0; margin:-20px 0 20px 0;">
-        <div class="container">
-            <h1 style="color:#fff; font-size:60px">Getting started</h1>
-            <p style="font-size:24px; line-height:48px">Learn JavaScript, Node.js, npm, koa2, nunjucks, babel, etc. at liaoxuefeng.com.</p>
-        </div>
-    </div>
     {% block main %} {% endblock %}
-    <footer style="background-color:#ddd; padding: 20px 0;">
+    <!-- <footer style="background-color:#ddd; padding: 20px 0;">
         <div class="container">
             <p>
                 <a target="_blank" href="http://www.liaoxuefeng.com">Website</a> - 
@@ -43,7 +39,7 @@
             <p>This JavaScript course is created by <a target="_blank" href="http://weibo.com/liaoxuefeng">@廖雪峰</a>.</p>
             <p>Code licensed <a target="_blank" href="https://github.com/michaelliao/learn-javascript/blob/master/LICENSE">Apache</a>.</p>
         </div>
-    </footer>
+    </footer> -->
 </body>
 
 </html>

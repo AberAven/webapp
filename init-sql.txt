@@ -13,3 +13,29 @@ create table users (
     version bigint not null,
     primary key (id)
 ) engine=innodb;
+
+use test;
+
+create table books (
+    id varchar(50) not null,
+    uid varchar(50) not null,
+    bookName varchar(100) not null,
+    chapterId varchar(50) not null,
+    author varchar(20) not null,
+    classification int not null,
+    createdAt bigint not null,
+    updatedAt bigint not null,
+    version bigint not null,
+    primary key (id)
+) engine=innodb;
+
+create table chapters (
+    id varchar(50) not null,
+    bid varchar(50) not null,
+    chapterNumber varchar(50) not null,
+    chapterName varchar(100) not null,
+    createdAt bigint not null,
+    updatedAt bigint not null,
+    version bigint not null,
+    primary key (id)
+) engine=innodb;
