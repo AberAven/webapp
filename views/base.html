@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/mycss.css">
     <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
     <script type="text/javascript" src="/static/js/jquery.cookie.js"></script> 
+     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             //初始化代码
@@ -21,7 +22,14 @@
             if (isLogin) {
                 console.log('islogin');
                 $('#login').text('退出登陆');
-                $('#login').attr('href','/exit');
+                $('#login').attr('href',null);
+                $('#login').click(function(){
+                    axios.get('/exit').then(function(res){
+                        if(res.data.result=='ok'){
+                            window.location.reload();
+                        }
+                    });
+                });
                 $('#register').remove();
                 if (!isAuthor) {
                     $('#add_book').remove();

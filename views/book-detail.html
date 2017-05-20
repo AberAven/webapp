@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="learn javascript by www.liaoxuefeng.com">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/mycss.css">
+    <script src="./static/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+    </script>
+    <style type="text/css">
+    .box1-div {
+        width: 1200px;
+        margin: 10px auto;
+        background: #F8F8F8;
+    }
+    
+    .box-name1 {
+        width: 80%;
+        float: left;
+        vertical-align: center;
+        margin-top: 30px;
+    }
+    
+    .box-name2 {
+        width: 80%;
+        float: left;
+        vertical-align: center;
+    }
+    
+    .img {
+        width: 200px;
+        height: 300px;
+        float: left;
+        margin-right: 30px;
+    }
+    
+    .add-chapters {
+        width: 400px;
+        padding: 20px 30px 20px 30px;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
+        display: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="panel panel-default add-chapters" id="add-chapter-panel">
+        <div class="panel_body">
+            <div>
+                <div class="form-group">
+                    <table>章节名</table>
+                    <input id="chapter_name" type="text" name="chapter_name" class="form-control" required="require">
+                </div>
+                <div class="form-group">
+                    <table>内容</table>
+                    <textarea id="chapter_content" rows="10" cols="40" type="text" name="chapter_content" class="form-control" required="require"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="text" class="btn btn-primary" onclick="addChapter()">确定</button>
+                    <button type="text" class="btn btn-primary" onclick="cancel()">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box1-div">
+        <img src="/static/img/loading.jpg" class="img">
+        <div class="box-name1">
+            <h3>书名:</h3>
+            <h4>《{{bookName}}》</h4>
+        </div>
+        <div class="box-name2">
+            <h3 style="">作者:</h3>
+            <h4 style="">{{author}}</h4>
+        </div>
+        <button id="add-chapter" type="text" class="btn btn-primary" style="margin-top: 70px;" onclick="showChapter(event)">添加章节</button>
+    </div>
+</body>
+<script type="text/javascript">
+function showChapter(e) {
+    $('#add-chapter-panel').show()
+}
+
+function addChapter() {
+    var name = $('#chapter_name').val() || '',
+        content = $('#chapter_content').val() || '';
+    axios.post('/addChapter', {
+        chapterName: name,
+        chapterContent: content
+    }).then(function(res) {
+        if (res.data.result == 'ok') {
+            cancel();
+            window.location.reload();
+        } else {
+            alert('添加失败');
+        }
+    })
+}
+
+function cancel() {
+    $('#add-chapter-panel').hide()
+}
+</script>
+
+</html>

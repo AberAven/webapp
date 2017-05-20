@@ -26,17 +26,17 @@ module.exports = {
         var result = [];
         var arr1 = [];
         for (var i = 0; i < __books.length; i++) {
-            if(i%3==0){
-                console.log(arr1);
+            arr1.push({
+                bookName: __books[i].dataValues.bookName,
+                author: __books[i].dataValues.author,
+                id: __books[i].dataValues.id
+            });
+            if((i+1)%3==0 || i+1==__books.length){
                 result.push(arr1);
                 arr1 = [];
             }
-            arr1.push({
-                bookName: __books[i].dataValues.bookName,
-                author: __books[i].dataValues.author
-            });
         }
-        console.log(result);
+       
         ctx.render('index.html', {
             title: '书城',
             isLogin: is_login,

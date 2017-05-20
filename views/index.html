@@ -138,17 +138,27 @@
             {% for i1,i2,i3 in books %}
             <tr>
                 {% if i1 %}
-                <td class="book-td"><a href="#">{{i1.bookName}}--{{i1.author}}</a></td>
-                {% endif %} 
-                {% if i1 %}
-                <td class="book-td"><a href="#">{{i2.bookName}}--{{i2.author}}</a></td>
-                {% endif %} 
-                {% if i1 %}
-                <td class="book-td"><a href="#">{{i3.bookName}}--{{i2.author}}</a></td>
+                <td class="book-td"><a href="/bookDetail?id={{i1.id}}"  name="{{i1.id}}">{{i1.bookName}}--{{i1.author}}</a></td>
+                {% endif %} {% if i2 %}
+                <td class="book-td"><a href="/bookDetail?id={{i1.id}}" name="{{i2.id}}">{{i2.bookName}}--{{i2.author}}</a></td>
+                {% endif %} {% if i3 %}
+                <td class="book-td"><a href="/bookDetail?id={{i1.id}}"  name="{{i3.id}}">{{i3.bookName}}--{{i3.author}}</a></td>
                 {% endif %}
             </tr>
             {% endfor %}
         </table>
     </div>
 </div>
+<script type="text/javascript">
+function check_book(e) {
+    console.log(e.target.name);
+    axios.post('/bookDetail',{
+        bookId:e.target.name
+    }).then(function(res){
+        console.log(res.data);
+    }).catch(function(err){
+        console.log(err);
+    });
+}
+</script>
 {% endblock %}

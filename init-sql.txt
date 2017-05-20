@@ -34,6 +34,7 @@ create table chapters (
     bid varchar(50) not null,
     chapterNumber varchar(50) not null,
     chapterName varchar(100) not null,
+    chapterContent varchar(500) not null,
     createdAt bigint not null,
     updatedAt bigint not null,
     version bigint not null,

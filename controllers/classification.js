@@ -1,9 +1,5 @@
 module.exports = {
-    'GET /classification': async(ctx, next) => {
-        //function render(view, model)
-        
-        ctx.render('classification.html', {
-            title: '分类'
-        });
+    'POST /classification': async(ctx, next) => {
+        console.log(ctx.request.body.bookId);
     }
 };

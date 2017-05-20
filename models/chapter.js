@@ -7,5 +7,6 @@ module.exports = db.defineModel('chapters', {
     },
     bid: db.STRING(50),
     chapterNumber: db.STRING(50),
-    chapterName: db.STRING(100)
+    chapterName: db.STRING(100),
+    chapterContent:db.STRING(500)
 });
