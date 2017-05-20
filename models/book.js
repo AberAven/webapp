@@ -8,5 +8,6 @@ module.exports = db.defineModel('books', {
     uid:db.STRING(50),
     bookName :db.STRING(100),
     chapterId:db.STRING(50),
-    author:db.STRING(20)
+    author:db.STRING(20),
+    classification:db.INTEGER
 });

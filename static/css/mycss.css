@@ -51,6 +51,24 @@
 	background: #F7F7F7;
 }
 
+/*下面的图书*/
+.book-div{
+	width: 100%;
+	text-align: center;
+}
+
+.book-table{
+	width: 100%;
+	text-align: center;
+	border: 1px solid gray;
+	background: #F6F6F6;
+}
+
+.book-td{
+	width: 33%;
+	text-align: center;
+}
+
 li{
 	line-height: 40px;
 }

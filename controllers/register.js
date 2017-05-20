@@ -1,13 +1,13 @@
 const User = require('../models/user');
 
 module.exports = {
-    'GET /register': async(ctx, next) => {
+    'GET /register': async (ctx, next) => {
         //function render(view, model)
         ctx.render('register.html', {
             title: '注册'
         });
     },
-    'POST /register': async(ctx, next) => {
+    'POST /register': async (ctx, next) => {
         var
             _email = ctx.request.body.email,
             _password = ctx.request.body.password,
@@ -33,9 +33,13 @@ module.exports = {
             version: 0
         });
         if (respone_user) {
-            ctx.body = 'ok';
+            ctx.body = {
+                result: 'ok'
+            };
         } else {
-            ctx.body = 'failed';
+            ctx.body = {
+                result: 'failed'
+            };
         }
     }
 };

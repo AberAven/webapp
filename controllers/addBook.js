@@ -1,22 +1,52 @@
+const Book = require('../models/book');
+const User = require('../models/user');
+
 module.exports = {
-    'GET /add_book': async (ctx, next) => {
+    'GET /add_book': async(ctx, next) => {
         //function render(view, model)
         ctx.render('addBook.html', {
             title: '添加图书'
         });
     },
-    'POST /add': async (ctx, next) => {
-        //function render(view, model)
-        // ctx.render('addBook.html', {
-        //     title: '添加图书'
-        // });
-        console.log("接受到");
-        console.log(ctx.request.body.bookname);
-        // ctx.render('index.html',{
-        //     title:'书城'
-        // });
-        ctx.body = {
-            result:'ok'
+    'POST /add': async(ctx, next) => {
+        var
+            _bookname = ctx.request.body.bookname,
+            _author = ctx.request.body.author,
+            _classification = ctx.request.body.classification;
+        var _email = ctx.cookies.get('user') || null;
+        if (_email == null) {
+            ctx.body = {
+                result: 'failed'
+            }
+        } else {
+            var user = await User.findOne({
+                where: {
+                    email: _email
+                }
+            });
+            console.log(_classification);
+            var now = Date.now();
+            var book = await Book.create({
+                id: 'b-' + now,
+                uid: user.id,
+                bookName: _bookname,
+                chapterId: 'undefined',
+                author: _author,
+                classification: _classification,
+                createdAt: now,
+                updatedAt: now,
+                version: 0
+            });
+            if (book) {
+                ctx.body = {
+                    result: 'ok'
+                }
+            } else {
+                ctx.body = {
+                    result: 'failed'
+
+                }
+            }
         }
     }
-};
+}

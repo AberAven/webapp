@@ -85,14 +85,19 @@ function register() {
         alert("两次输入的密码不一样");
         return;
     }
+    _author = author;
     axios.post('/register', {
             email: _email,
             password: _password,
             author: _author
         })
         .then(function(response) {
-            if (response.data.result = 'ok') {
+            console.log(response.data.result)
+            if (response.data.result == 'ok'){
                 alert("注册成功");
+                window.location.replace('/');
+            }else{
+                alert("注册失败");
             }
             console.log(response);
         })

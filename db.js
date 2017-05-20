@@ -10,7 +10,7 @@ function generateId() {
     return uuid.v4();
 }
 
-console.log(config.database+config.username+config.password)
+console.log(config.database + config.username + config.password)
 
 var sequelize = new Sequelize(config.database, config.username, config.password, {
     host: config.host,
@@ -101,6 +101,11 @@ function defineModel(name, attributes) {
 }
 
 const TYPES = ['STRING', 'INTEGER', 'BIGINT', 'TEXT', 'DOUBLE', 'DATEONLY', 'BOOLEAN'];
+
+const BOOK_TYPES = {
+    '玄幻': 1, '奇幻': 2, '武侠': 3, '仙侠': 4, '都市': 5, '职场': 6, '军事': 7, '历史': 8,
+    '游戏': 9, '体育': 10, '科幻': 11, '灵异': 12, '二次元': 13, '其他': 14
+};
 
 var exp = {
     defineModel: defineModel,
