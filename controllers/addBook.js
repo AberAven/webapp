@@ -1,11 +1,13 @@
 const Book = require('../models/book');
 const User = require('../models/user');
+const db = require('../db');
 
 module.exports = {
     'GET /add_book': async(ctx, next) => {
         //function render(view, model)
         ctx.render('addBook.html', {
-            title: '添加图书'
+            title: '添加图书',
+            options:db.BOOK_TYPES_NAME
         });
     },
     'POST /add': async(ctx, next) => {
@@ -24,7 +26,7 @@ module.exports = {
                     email: _email
                 }
             });
-            console.log(_classification);
+            _classification = db.BOOK_TYPES_NAME.indexOf(_classification)+1;
             var now = Date.now();
             var book = await Book.create({
                 id: 'b-' + now,

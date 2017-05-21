@@ -102,10 +102,14 @@ function defineModel(name, attributes) {
 
 const TYPES = ['STRING', 'INTEGER', 'BIGINT', 'TEXT', 'DOUBLE', 'DATEONLY', 'BOOLEAN'];
 
-const BOOK_TYPES = {
+const BOOK_TYPES_INDEX = {
     '玄幻': 1, '奇幻': 2, '武侠': 3, '仙侠': 4, '都市': 5, '职场': 6, '军事': 7, '历史': 8,
-    '游戏': 9, '体育': 10, '科幻': 11, '灵异': 12, '二次元': 13, '其他': 14
+    '游戏': 9, '体育': 10, '科幻': 11, '灵异': 12, '动漫': 13, '其他': 14
 };
+const BOOK_TYPES_NAME = [
+    '玄幻', '奇幻', '武侠', '仙侠', '都市', '职场', '军事', '历史',
+    '游戏', '体育', '科幻', '灵异', '动漫', '其他'
+];
 
 var exp = {
     defineModel: defineModel,
@@ -125,5 +129,7 @@ for (let type of TYPES) {
 
 exp.ID = ID_TYPE;
 exp.generateId = generateId;
+exp.BOOK_TYPES_INDEX = BOOK_TYPES_INDEX;
+exp.BOOK_TYPES_NAME = BOOK_TYPES_NAME;
 
 module.exports = exp;

@@ -19,21 +19,23 @@
             //初始化代码
             var isLogin = {{isLogin}};
             var isAuthor = {{isAuthor}};
+            if (!isAuthor) {
+                    $('#add_book').remove();
+            }
             if (isLogin) {
                 console.log('islogin');
                 $('#login').text('退出登陆');
-                $('#login').attr('href',null);
+                $('#login').attr('href','javascript:void(0);');
                 $('#login').click(function(){
                     axios.get('/exit').then(function(res){
                         if(res.data.result=='ok'){
+                            console.log('刷新');
                             window.location.reload();
                         }
                     });
                 });
                 $('#register').remove();
-                if (!isAuthor) {
-                    $('#add_book').remove();
-                }
+                
             }else{
                 console.log('isnt login');
             }

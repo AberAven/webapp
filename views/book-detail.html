@@ -11,7 +11,15 @@
     <script src="./static/js/jquery.js" type="text/javascript" charset="utf-8"></script>
     <script src="/static/js/bootstrap.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
     <script type="text/javascript">
+    $(document).ready(function() {
+        var author = {{isauchor}};
+        console.log(author)
+        if (!author) {
+            $('#add-chapter').remove();
+        }
+    });
     </script>
     <style type="text/css">
     .box1-div {
@@ -20,24 +28,50 @@
         background: #F8F8F8;
     }
     
+    .box2-div {
+        width: 100%;
+        margin: 10px auto;
+        background: #F8F8F8;
+        padding-left: 20px;
+        padding-top: 20px;
+    }
+    
+    .box3-div {
+        width: 100%;
+        margin: 20px auto;
+    }
+    
     .box-name1 {
-        width: 80%;
+        width: 75%;
         float: left;
         vertical-align: center;
         margin-top: 30px;
+        padding-left: 30px;
     }
     
     .box-name2 {
-        width: 80%;
+        width: 75%;
         float: left;
         vertical-align: center;
+        padding-left: 30px;
+    }
+    
+    .box-detail {
+        width: 1200px;
+        background: #F8F8F8;
+        padding-top: 15px;
+        padding-left: 20px;
+        padding-bottom: 15px;
     }
     
     .img {
         width: 200px;
         height: 300px;
         float: left;
-        margin-right: 30px;
+    }
+    
+    .img-div {
+        width: 25%;
     }
     
     .add-chapters {
@@ -48,10 +82,31 @@
         transform: translate(-50%, 0);
         display: none;
     }
+    
+    .content-panel {
+        padding: 50px 30px 50px 30px;
+        width: 1200px;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
+        display: none;
+    }
+    
+    .limit-text {
+        width: 700px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
     </style>
 </head>
 
 <body>
+    <div class="panel panel-default content-panel">
+        <h2 id="content-chapter-name" style="margin-bottom: 25px;">章节名称</h2>
+        <p id="content-content"></p>
+        <button class="btn btn-primary" type="text" id="complete" onclick="dismissContent(event)">完成</button>
+    </div>
     <div class="panel panel-default add-chapters" id="add-chapter-panel">
         <div class="panel_body">
             <div>
@@ -71,23 +126,39 @@
         </div>
     </div>
     <div class="box1-div">
-        <img src="/static/img/loading.jpg" class="img">
-        <div class="box-name1">
-            <h3>书名:</h3>
-            <h4>《{{bookName}}》</h4>
+        <div class="box2-div">
+            <div class="img-div">
+                <img src="/static/img/loading.jpg" class="img">
+            </div>
+            <div class="box-name1">
+                <h3>书名:</h3>
+                <h4>《{{bookName}}》</h4>
+            </div>
+            <div class="box-name2">
+                <h3 style="">作者:</h3>
+                <h4 style="">{{author}}</h4>
+            </div>
+            <div class="box-name2">
+                <button id="add-chapter" type="text" class="btn btn-primary" style="margin-top: 70px;margin-bottom: 15px;" onclick="showChapter(event)">添加章节</button>
+                <button type="text" class="btn btn-primary" style="margin-top: 70px;margin-bottom: 15px;" onclick="back(event)">返回</button>
+                <button type="text" class="btn btn-primary" style="margin-top: 70px;margin-bottom: 15px;" onclick="collect(event)">收藏</button>
+            </div>
         </div>
-        <div class="box-name2">
-            <h3 style="">作者:</h3>
-            <h4 style="">{{author}}</h4>
+        <div class="box3-div">
+            {% for i1,i2,i3 in chapters %}
+            <div id="{{i1}}" class="box-detail">
+                <p class="limit-text"><a href="javascript:void(0)" onclick="showContent(event,'{{i1}}')">{{i2}}</a></p>
+                <p class="limit-text">{{i3}}</p>
+            </div>
+            {% else %} {% endfor %}
         </div>
-        <button id="add-chapter" type="text" class="btn btn-primary" style="margin-top: 70px;" onclick="showChapter(event)">添加章节</button>
     </div>
 </body>
 <script type="text/javascript">
 function showChapter(e) {
     $('#add-chapter-panel').show()
 }
-
+//添加章节
 function addChapter() {
     var name = $('#chapter_name').val() || '',
         content = $('#chapter_content').val() || '';
@@ -106,6 +177,41 @@ function addChapter() {
 
 function cancel() {
     $('#add-chapter-panel').hide()
+}
+
+/**
+显示内容
+**/
+function showContent(event, id) {
+    $('#content-chapter-name').text($('#' + id).find("a").find("h4").text());
+    $('#content-content').text($('#' + id).find("p").text());
+    $('.content-panel').show();
+}
+
+function dismissContent(e) {
+    $('.content-panel').hide();
+}
+
+function back(e) {
+    window.location.replace('/');
+}
+
+function collect(e) {
+    axios.post('/collect').
+    then((res) => {
+        if (res.data.result == 'ok') {
+            alert('收藏成功');
+        } else if (res.data.result == 'nologin') {
+            alert('您还没登陆');
+        } else if (res.data.result == 'exist') {
+            alert('你已经收藏');
+        }else{
+            alert('收藏失败');
+        }
+    }).catch((err) => {
+        console.log(err);
+        alert('收藏失败');
+    })
 }
 </script>
 

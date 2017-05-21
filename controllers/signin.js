@@ -18,8 +18,8 @@ module.exports = {
             console.log(user.author);
             var date = new Date();
             date.setTime(date.getTime() + minute * 60 * 1000);
-            ctx.cookies.set('user', _email, { expires: date});
-            ctx.cookies.set('author', user.author, { expires: date});
+            ctx.cookies.set('user', _email, { expires: date,httpOnly:false});
+            ctx.cookies.set('author', user.author, { expires: date,httpOnly:false});
             ctx.body = {
                 result: 'ok'
             }

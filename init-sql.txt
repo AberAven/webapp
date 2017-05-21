@@ -40,3 +40,13 @@ create table chapters (
     version bigint not null,
     primary key (id)
 ) engine=innodb;
+
+create table collects (
+    id varchar(50) not null,
+    uid varchar(50) not null,
+    bid varchar(50) not null,
+    createdAt bigint not null,
+    updatedAt bigint not null,
+    version bigint not null,
+    primary key (id)
+) engine=innodb;
