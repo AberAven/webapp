@@ -7,6 +7,12 @@
                 <li><a id="login" name="login" href="/login">登陆</a></li>
                 <li><a id="register" name="register" href="/register">注册</a></li>
                 <li><a id="add_book" name="addBook" href="/add_book">上架图书</a></li>
+                <li><a id="mybook" name="myBook" href="/mybook">我的图书</a></li>
+                <li>
+                    <p id="myaccount" style="padding-left:10px;padding-top: 15px;line-height: 20px;">账户余额:{{account}}起飞币</p>
+                </li>
+                <li><a id="recharge" href="/recharge">充值</a></li>
+                <li><a id="myorder" href="/myorder">我的订单</a></li>
             </ul>
         </nav>
     </div>
@@ -16,7 +22,7 @@
         <img src="./static/img/logo.jpg" style="margin: 0 184px 0 0;float: left;" />
         <form action="/search" accept-charset="utf-8" onsubmit="document.charset='utf-8';" method="post" style="float: left;margin: 0 auto;text-align: center;padding: 15px 0;" enctype=application/x-www-form-urlencoded>
             <input id="search" type="text" name="search" class="search-box float-left" placeholder="按名字搜索小说" />
-            <input class="float-left search-btn" type="submit" id="searchSubmit" value="搜索" />
+            <input class="btn btn-primary float-left search-btn" type="submit" id="searchSubmit" value="搜索" />
         </form>
         <div class="mybook-div" id="mybook-div">
             <div class="center-div">
@@ -122,11 +128,9 @@
     </div>
     <div class="hot-recommendation">
         <ul>
-            <h3>热门推荐</h3>
-            {% for i1,i2 in hot_books %}
+            <h3>热门推荐</h3> {% for i1,i2 in hot_books %}
             <li><a href="/bookDetail?{{i1}}">{{i2}}</a></li>
-            {% else %}
-            {% endfor %}
+            {% else %} {% endfor %}
         </ul>
     </div>
     <div class="book-div">

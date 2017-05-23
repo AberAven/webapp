@@ -28,6 +28,7 @@ module.exports = {
             gender: false,
             birth: '2007-07-07',
             author: _author,
+            account: 0,
             createdAt: now,
             updatedAt: now,
             version: 0

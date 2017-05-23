@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="book shop">
+    <meta name="keywords" content="书城">
+    <title>充值</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <script src="/static/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/mycss.css">
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+    <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style type="text/css">
+    body {
+        position: relative;
+    }
+    
+    .login-box {
+        margin: 40px auto;
+        width: 400px;
+        height: 200px;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+    
+    .loading-box {
+        margin: 30px auto;
+        width: 250px;
+        height: 150px;
+        position: absolute;
+        top: 200px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        text-align: center;
+        z-index: 999;
+        border: 2px solid gray;
+        background: white;
+        display: none;
+    }
+    
+    .btn-confirm {
+        display: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="loading-box">
+        <label style="margin-top: 50px; width: 100%;">充值中......请稍后</label>
+        <div class="btn btn-primary btn-confirm" onclick="javascript:window.location.replace('/')">确认</div>
+    </div>
+    <div class="col-md-6 login-box">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                <span class="glyphicon glyphicon-user"></span> 充值
+                <a href="#" onclick="javascript :history.back(-1);" style="float: right;"><p>X</p></a>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <div class="form-group">
+                        <label>充值金额</label>
+                        <input id="amount" type="amount" name="amount" class="form-control" placeholder="请输入充值金额" required="require">
+                        <p class="help-block">1 RMB = 1 起飞币</p>
+                    </div>
+                    <div class="form-group">
+                        <label>选择支付方式</label>
+                        <input id="pay_type" type="text" name="pay_type" list="pay-list" class="form-control" placeholder="请选择" required="require">
+                        <datalist id="pay-list">
+                            <option>银联</option>
+                            <option>支付宝</option>
+                        </datalist>
+                    </div>
+                    <div>
+                        <button type="text" class="btn btn-primary" onclick="recharge()">充值</button>
+                        <a id="login-cancel" type="text" class="btn btn-primary" href="javascript:window.location.replace('/');">取消</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+function recharge() {
+    var amount = $('#amount').val();
+    var pay_type = $('#pay_type').val();
+    if (amount==''||pay_type=='') {
+        alert('请输入充值金额和支付类型');
+        return ;
+    }
+    console.log(amount + ' ' + pay_type);
+    $('.loading-box').show();
+    axios.post('/recharge', {
+        amount: amount,
+        pay_type: pay_type
+    }).then(function(res) {
+        if (res.data.result == 'ok') {
+            console.log('ok');
+            $('.loading-box').find('label').text('充值成功');
+            $('.btn-confirm').show();
+        } else if (res.data.result == 'nologin') {
+            alert('请先登录');
+            window.location.replace("/login");
+        }else{
+            console.log('failed');
+            alert('充值失败');
+            $('.loading-box').hide();
+        }
+    }).catch(function(err) {
+        console.log(err);
+        alert('充值失败');
+        $('.loading-box').hide();
+    })
+}
+</script>
+
+</html>

@@ -137,17 +137,21 @@
             <div class="box-name2">
                 <h3 style="">作者:</h3>
                 <h4 style="">{{author}}</h4>
+            </div> 
+            <div class="box-name2">
+                <h4 style="">已有 {{votes}} 人投票</h4>
             </div>
             <div class="box-name2">
-                <button id="add-chapter" type="text" class="btn btn-primary" style="margin-top: 70px;margin-bottom: 15px;" onclick="showChapter(event)">添加章节</button>
-                <button type="text" class="btn btn-primary" style="margin-top: 70px;margin-bottom: 15px;" onclick="back(event)">返回</button>
-                <button type="text" class="btn btn-primary" style="margin-top: 70px;margin-bottom: 15px;" onclick="collect(event)">收藏</button>
+                <button id="add-chapter" type="text" class="btn btn-primary" style="margin-top: 30px;margin-bottom: 15px;" onclick="showChapter(event)">添加章节</button>
+                <button type="text" class="btn btn-primary" style="margin-top: 30px;margin-bottom: 15px;" onclick="back(event)">返回</button>
+                <button type="text" class="btn btn-primary" style="margin-top: 30px;margin-bottom: 15px;" onclick="collect(event)">收藏</button>
+                <button type="text" class="btn btn-primary" style="margin-top: 30px;margin-bottom: 15px;" onclick="vote(event)">投票</button>
             </div>
         </div>
         <div class="box3-div">
             {% for i1,i2,i3 in chapters %}
             <div id="{{i1}}" class="box-detail">
-                <p class="limit-text"><a href="javascript:void(0)" onclick="showContent(event,'{{i1}}')">{{i2}}</a></p>
+                <p class="limit-text"><a href="javascript:void(0)" onclick="showContent(event,'{{i1}}')" style="font-size: 25px;">{{i2}}</a></p>
                 <p class="limit-text">{{i3}}</p>
             </div>
             {% else %} {% endfor %}
@@ -183,7 +187,7 @@ function cancel() {
 显示内容
 **/
 function showContent(event, id) {
-    $('#content-chapter-name').text($('#' + id).find("a").find("h4").text());
+    $('#content-chapter-name').text($('#' + id).find('p').find("a").text());
     $('#content-content').text($('#' + id).find("p").text());
     $('.content-panel').show();
 }
@@ -212,6 +216,26 @@ function collect(e) {
         console.log(err);
         alert('收藏失败');
     })
+}
+
+function vote(e) {
+    axios.post('/vote').
+    then((res)=>{
+        console.log(res);
+        if(res.data.result == 'ok'){
+            alert('投票成功!');
+            window.location.reload();
+        }else if (res.data.result == 'nologin') {
+            alert('请先登陆');
+        } else if (res.data.result == 'nomoney') {
+            alert('余额不足，请先充值!');
+        } else {
+            alert('投票失败,请重试');
+        }
+    }).catch((err)=>{
+        console.log(err);
+        alert('投票失败,请重试');
+    });
 }
 </script>
 

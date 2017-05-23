@@ -9,5 +9,6 @@ module.exports = db.defineModel('books', {
     bookName :db.STRING(100),
     chapterId:db.STRING(50),
     author:db.STRING(20),
+    votes:db.BIGINT,
     classification:db.INTEGER
 });

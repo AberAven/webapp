@@ -34,6 +34,7 @@ module.exports = {
                 bookName: _bookname,
                 chapterId: 'undefined',
                 author: _author,
+                votes:0,
                 classification: _classification,
                 createdAt: now,
                 updatedAt: now,

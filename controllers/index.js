@@ -1,4 +1,13 @@
 const Book = require('../models/book');
+const User = require('../models/user');
+
+var getUserAccount = async(cookies)=>{
+    return await User.findOne({
+        where:{
+            email:cookies
+        }
+    }).then((res)=>res.account);
+}
 
 module.exports = {
     'GET /': async (ctx, next) => {
@@ -7,6 +16,7 @@ module.exports = {
         var coo = ctx.cookies.get('user') || undefined;
         var author = ctx.cookies.get('author') || undefined;
         var _author;
+        var _account = 0;
         if (author) {
             _author = true;
         } else {
@@ -14,15 +24,16 @@ module.exports = {
         }
         if (coo) {
             is_login = true;
+            _account = await getUserAccount(coo);
         } else {
             is_login = false;
         }
         var __books = await Book.findAll({
             limit: 20
         })
-            .then(res => {
-                return res;
-            });
+        .then(res => {
+            return res;
+        });
         var result = [];
         var arr1 = [];
         for (var i = 0; i < __books.length; i++) {
@@ -37,16 +48,21 @@ module.exports = {
             }
         }
         var hot_book = [];
-        for (let j = 0; j < __books.length && j < 7; j++) {
+        var sorted_book = await Book.findAll({
+            order:'votes DESC',
+            limit:7
+        });
+        for (let j = 0; j < sorted_book.length && j < 7; j++) {
             let temp = [];
-            temp.push(__books[j].dataValues.id);
-            temp.push(__books[j].dataValues.bookName);
+            temp.push(sorted_book[j].dataValues.id);
+            temp.push(sorted_book[j].dataValues.bookName);
             hot_book.push(temp);
         }
         ctx.render('index.html', {
             title: '书城',
             isLogin: is_login,
             isAuthor: _author,
+            account:_account,
             books: result,
             hot_books: hot_book
         });
@@ -54,11 +70,12 @@ module.exports = {
     'POST /search': async (ctx, next) => {
         // ctx.request.url.split('?')[1].substring(7);
         var bookName = ctx.request.body.search;
+        bookName = bookName.replace(/\s+/g, "");
         console.log(bookName);
         var books = await Book.findAll({
             where: {
                 bookName: {
-                    $like: bookName + '%'
+                    $like: '%' + bookName + '%'
                 }
             }
         }).then((res) => {

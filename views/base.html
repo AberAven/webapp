@@ -21,6 +21,7 @@
             var isAuthor = {{isAuthor}};
             if (!isAuthor) {
                     $('#add_book').remove();
+                    $('#mybook').remove();
             }
             if (isLogin) {
                 console.log('islogin');
@@ -35,8 +36,10 @@
                     });
                 });
                 $('#register').remove();
-                
             }else{
+                $('#myaccount').remove();
+                $('#recharge').remove();
+                $('#myorder').remove();
                 console.log('isnt login');
             }
         });
