@@ -37,7 +37,7 @@ module.exports = {
         let name = ctx.cookies.get('user');
         var _uid = await getUid(name);
         if (!_uid) {
-            ctx.body = "<a href='javascript:window.location.replace('/');'><h1>请先登陆</h1></a>";
+            ctx.body = "<a href=\"javascript:window.location.replace(\'\/\');\"><h1>请先登陆</h1></a>";
             return;
         }
         var _oid = await getOid(_uid);
