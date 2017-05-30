@@ -16,8 +16,8 @@ module.exports = {
             _author = ctx.request.body.author,
             _classification = ctx.request.body.classification,
             _cover = ctx.request.body.cover;
-        console.log('cover:'+_cover);
-        console.log('body:'+ctx.request.body);
+        console.log(_cover.length);
+        console.log(JSON.stringify(ctx.request.body));
         var _email = ctx.cookies.get('user') || null;
         if (_email == null) {
             ctx.body = {
