@@ -14,7 +14,10 @@ module.exports = {
         var
             _bookname = ctx.request.body.bookname,
             _author = ctx.request.body.author,
-            _classification = ctx.request.body.classification;
+            _classification = ctx.request.body.classification,
+            _cover = ctx.request.body.cover;
+        console.log('cover:'+_cover);
+        console.log('body:'+ctx.request.body);
         var _email = ctx.cookies.get('user') || null;
         if (_email == null) {
             ctx.body = {

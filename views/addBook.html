@@ -54,6 +54,10 @@
                             {% else %} {% endfor %}}
                         </datalist>
                     </div>
+                    <div class="form-group">
+                        <label>上传封面</label>
+                        <input type="file" name="cover" class="form-control" placeholder="上传封面">
+                    </div>
                     <div>
                         <button type="text" class="btn btn-primary" onclick="add_books()">上架</button>
                     </div>
@@ -68,6 +72,7 @@ function add_books() {
             bookname: $("input[name='bookname']").val(),
             author: $("input[name='author']").val(),
             classification: $("input[name='classification']").val()
+            cover: $("input[name='cover']").val()
         })
         .then(function(response) {
             console.log(response.data.result);
