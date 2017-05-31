@@ -54,6 +54,10 @@
                             {% else %} {% endfor %}}
                         </datalist>
                     </div>
+                    <div class="form-group">
+                        <label>上传封面</label>
+                        <input id="cover" type="file" name="cover" class="form-control" placeholder="上传封面">
+                    </div>
                     <div>
                         <button type="text" class="btn btn-primary" onclick="add_books()">上架</button>
                     </div>
@@ -64,10 +68,12 @@
 </body>
 <script type="text/javascript">
 function add_books() {
+console.log(document.getElementById('cover').files[0]);
     axios.post('/add', {
             bookname: $("input[name='bookname']").val(),
             author: $("input[name='author']").val(),
-            classification: $("input[name='classification']").val()
+            classification: $("input[name='classification']").val(),
+            cover: document.getElementById('cover').files[0]
         })
         .then(function(response) {
             console.log(response.data.result);
