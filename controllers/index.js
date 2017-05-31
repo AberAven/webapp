@@ -79,26 +79,58 @@ module.exports = {
                 }
             }
         }).then((res) => {
+            if(res.length==0){
+                return null;
+            }
             return res;
+        }).catch(err=>{
+            return null;
         });
-        var result = [];
-        var temp = [];
-        for (var b in books) {
-            temp.push(books[b].dataValues.id);
-            temp.push(books[b].dataValues.bookName);
-            temp.push(books[b].dataValues.author);
-            result.push(temp);
-            temp = [];
-        }
         if (books) {
+            let result = [];
+            let temp = [];
+            for (var b in books) {
+                temp.push(books[b].dataValues.id);
+                temp.push(books[b].dataValues.bookName);
+                temp.push(books[b].dataValues.author);
+                result.push(temp);
+                temp = [];
+            }
             ctx.render('searchResult.html', {
                 title: '搜索结果',
                 book: result
             });
         } else {
-            ctx.render('searchResult.html', {
-                title: '搜索结果'
+            var books4author = await Book.findAll({
+            where: {
+                author: {
+                    $like: '%' + bookName + '%'
+                }
+            }
+            }).then((res) => {
+                return res;
+            }).catch(err=>{
+                return null;
             });
+            if(books4author){
+                let result = [];
+                let temp = [];
+                for (var b in books4author) {
+                    temp.push(books4author[b].dataValues.id);
+                    temp.push(books4author[b].dataValues.bookName);
+                    temp.push(books4author[b].dataValues.author);
+                    result.push(temp);
+                    temp = [];
+                }
+                ctx.render('searchResult.html', {
+                    title: '搜索结果',
+                    book: result
+                });
+            }else{
+                ctx.render('searchResult.html', {
+                    title: '搜索结果'
+                });
+            }
         }
     }
 };

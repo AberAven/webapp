@@ -10,5 +10,7 @@ module.exports = db.defineModel('books', {
     chapterId:db.STRING(50),
     author:db.STRING(20),
     votes:db.BIGINT,
-    classification:db.INTEGER
+    classification:db.INTEGER,
+    needPay:db.BOOLEAN,
+    price:db.INTEGER
 });

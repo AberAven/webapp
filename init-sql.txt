@@ -79,3 +79,13 @@ create table client_orders (
 INSERT INTO `users` VALUES ('g-1495096554787', 'admin@example.com', '123456', 'jane', 0, '2007-07-07', 1, 0,1495096554792, 1495096554792, 0);
 INSERT INTO `users` VALUES ('g-1495267165920', '123@qq.com', '123', '123@qq.com', 0, '2007-07-07', 0,0, 1495267165922, 1495267165922, 0);
 INSERT INTO `users` VALUES ('g-1495432704391', '1@q.q', '123', '1@q.q', 0, '2007-07-07', 0, 0,1495432704393, 1495432704393, 0);
+
+create table buyeds (
+    id varchar(50) not null,
+    uid varchar(50) not null,
+    bid varchar(50) not null,
+    createdAt bigint not null,
+    updatedAt bigint not null,
+    version bigint not null,
+    primary key (id)
+) engine=innodb;

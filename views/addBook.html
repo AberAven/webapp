@@ -55,8 +55,8 @@
                         </datalist>
                     </div>
                     <div class="form-group">
-                        <label>上传封面</label>
-                        <input id="cover" type="file" name="cover" class="form-control" placeholder="上传封面">
+                        <label>是否免费<input id="needPay" type="checkbox" name="needPay" value="1" style="margin-left: 5px;" /></label>
+                        <label style="margin-left: 10px;">价格:<input id="price" type="text" name="price" value="0" style="width: 40px;" />起飞币</label>
                     </div>
                     <div>
                         <button type="text" class="btn btn-primary" onclick="add_books()">上架</button>
@@ -68,14 +68,14 @@
 </body>
 <script type="text/javascript">
 function add_books() {
-console.log(document.getElementById('cover').files[0]);
     axios.post('/add', {
             bookname: $("input[name='bookname']").val(),
             author: $("input[name='author']").val(),
             classification: $("input[name='classification']").val(),
-            cover: document.getElementById('cover').files[0]
-        })
-        .then(function(response) {
+            needPay:$('input:checkbox[name="needPay"]:checked').val()||0,
+            price:$("input[name='price']").val()
+            // cover: document.getElementById('cover').files[0]
+        }).then(function(response) {
             console.log(response.data.result);
             if (response.data.result == 'ok') {
                 alert('上架成功');

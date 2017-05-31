@@ -6,6 +6,7 @@ const fs = require('fs');
 
 // add url-route in /controllers:
 
+
 function addMapping(router, mapping) {
     for (var url in mapping) {
         if (url.startsWith('GET ')) {
@@ -33,16 +34,16 @@ function addMapping(router, mapping) {
 function addControllers(router, dir) {
     //读取controllers文件夹下的js文件
     fs
-    .readdirSync(__dirname + '/' + dir).filter((f) => {
-        return f.endsWith('.js');
-    })
-    //对于每个文件 require每个文件暴露出来的函数
-    .forEach((f) => {
-        console.log(`process controller: ${f}...`);
-        //处理函数
-        let mapping = require(__dirname + '/' + dir + '/' + f);
-        addMapping(router, mapping);
-    });
+        .readdirSync(__dirname + '/' + dir).filter((f) => {
+            return f.endsWith('.js');
+        })
+        //对于每个文件 require每个文件暴露出来的函数
+        .forEach((f) => {
+            console.log(`process controller: ${f}...`);
+            //处理函数
+            let mapping = require(__dirname + '/' + dir + '/' + f);
+            addMapping(router, mapping);
+        });
 }
 
 module.exports = function (dir) {
