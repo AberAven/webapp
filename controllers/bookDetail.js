@@ -2,6 +2,10 @@ const Book = require('../models/book');
 const Chapter = require('../models/chapter');
 const User = require('../models/user');
 const CheckBuy = require('../models/buyeds');
+const fs = require('fs');
+
+const DEFAULT_IMG_PATH = './static/img/defaultImg';
+const BASE_PATH = './static/img/';
 
 var getUid = async (userName) => {
     if (!userName) {
@@ -13,7 +17,7 @@ var getUid = async (userName) => {
         }
     }).then((res) => {
         return res.id;
-    }).catch(err=>{
+    }).catch(err => {
         console.log(err);
         return null;
     });
@@ -49,25 +53,26 @@ var takeOffAccount = async (uid, amount) => {
     return await updateUserAccount(result.dataValues, amount);
 }
 
-var checkBuyed = async(uid,bid,needPay)=>{
-    return needPay!=0?true:await CheckBuy.findOne({
-        where:{
-            uid:uid,
-            bid:bid
+var checkBuyed = async (uid, bid, needPay) => {
+    return needPay != 0 ? true : await CheckBuy.findOne({
+        where: {
+            uid: uid,
+            bid: bid
         }
-    }).then(res=>{
-        if(res){
+    }).then(res => {
+        if (res) {
             return true;
-        }else{
+        } else {
             return false;
         }
-    }).catch(err=>{
+    }).catch(err => {
         console.log(err);
         return false;
     })
 }
 
 module.exports = {
+    //获取图书详情
     'GET /bookDetail': async (ctx, next) => {
         var is_author = ctx.cookies.get('author') || false;
         var uid = await getUid(ctx.cookies.get('user'));
@@ -100,7 +105,7 @@ module.exports = {
             chapters.push(temp);
             temp = [];
         }
-        var _isBuyed = await checkBuyed(uid,_id,book.needPay);
+        var _isBuyed = await checkBuyed(uid, _id, book.needPay);
         if (book) {
             if (_chapters) {
                 ctx.render('book-detail.html', {
@@ -109,8 +114,8 @@ module.exports = {
                     author: book.author,
                     votes: book.votes,
                     chapters: chapters,
-                    isBuyed:_isBuyed,
-                    bookprice:book.price,
+                    isBuyed: _isBuyed,
+                    bookprice: book.price,
                     isauchor: is_author
                 });
             } else {
@@ -119,8 +124,8 @@ module.exports = {
                     bookName: book.bookName,
                     author: book.author,
                     votes: book.votes,
-                    isBuyed:_isBuyed,
-                    bookprice:book.price,
+                    isBuyed: _isBuyed,
+                    bookprice: book.price,
                     isauchor: is_author
                 });
             }
@@ -172,6 +177,7 @@ module.exports = {
             };
         }
     },
+    //投票
     'POST /vote': async (ctx, next) => {
         let _bid = ctx.request.header.referer.split("?")[1];
         if (!_bid.startsWith('b-')) {
@@ -217,7 +223,8 @@ module.exports = {
             }
         }
     },
-    'POST /buyBook':async(ctx,next)=>{
+    //购买图书
+    'POST /buyBook': async (ctx, next) => {
         var bookPrice = ctx.request.body.price;
         let _bid = ctx.request.header.referer.split("?")[1];
         if (!_bid.startsWith('b-')) {
@@ -244,9 +251,9 @@ module.exports = {
                 createdAt: now,
                 updatedAt: now,
                 version: 0
-            }).then(res=>{
+            }).then(res => {
                 return res;
-            }).catch(err=>{
+            }).catch(err => {
                 console.log(err);
                 return null;
             });
@@ -264,5 +271,66 @@ module.exports = {
                 result: 'nomoney'
             }
         }
+    },
+    //获取封面图片
+    'GET /cover': async (ctx, next) => {
+        var bid = ctx.request.header.referer.split('?')[1].substring(3);
+        let imgPath = BASE_PATH + bid;
+        if (fs.existsSync(imgPath)) {
+            let path = fs.readFileSync(imgPath, 'utf8');
+            ctx.response.body = {
+                result: 'ok',
+                imgPath: path
+            }
+        } else {
+            let path = fs.readFileSync(DEFAULT_IMG_PATH, 'utf8');
+            ctx.response.body = {
+                result: 'ok',
+                imgPath: path
+            }
+        }
+
+    },
+    //修改封面
+    'POST /cover': async (ctx, next) => {
+        let new_path = ctx.request.body.cover;
+        let bid = ctx.request.header.referer.split('?')[1].substring(3);
+        let path = BASE_PATH + bid;
+        let result;
+        // if (!fs.existsSync()) {
+        //     //修改数据库
+        //     await Book.update().then(res=>{
+
+        //     }).catch(err=>{
+
+        //     });
+        // }
+        result = await writeData2File(new_path, bid);
+        if (result) {
+
+            ctx.response.body = {
+                result: 'ok'
+            }
+        } else {
+            ctx.response.body = {
+                result: 'failed'
+            }
+        }
     }
 };
+
+var writeData2File = async (data, name) => {
+    dir = BASE_PATH + name;
+    try {
+        fs.writeFileSync(dir, data, (err) => {
+            if (err) {
+                console.log("Image isn\'s saved! error: \n");
+                throw err;
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+    return dir;
+}

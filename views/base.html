@@ -26,7 +26,7 @@
             if (isLogin) {
                 console.log('islogin');
                 $('#login').text('退出登陆');
-                $('#login').attr('href','javascript:void(0);');
+                $('#login').attr('href',"javascript:void(0);");
                 $('#login').click(function(){
                     axios.get('/exit').then(function(res){
                         if(res.data.result=='ok'){
@@ -48,17 +48,6 @@
 
 <body>
     {% block main %} {% endblock %}
-    <!-- <footer style="background-color:#ddd; padding: 20px 0;">
-        <div class="container">
-            <p>
-                <a target="_blank" href="http://www.liaoxuefeng.com">Website</a> - 
-                <a target="_blank" href="https://github.com/michaelliao/learn-javascript">GitHub</a> - 
-                <a target="_blank" href="http://weibo.com/liaoxuefeng">Weibo</a>
-            </p>
-            <p>This JavaScript course is created by <a target="_blank" href="http://weibo.com/liaoxuefeng">@廖雪峰</a>.</p>
-            <p>Code licensed <a target="_blank" href="https://github.com/michaelliao/learn-javascript/blob/master/LICENSE">Apache</a>.</p>
-        </div>
-    </footer> -->
 </body>
 
 </html>

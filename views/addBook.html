@@ -55,6 +55,11 @@
                         </datalist>
                     </div>
                     <div class="form-group">
+                        <label>封面图片</label>
+                        <input type="file" name="cover" placeholder="请输入作者" onchange="getBase64(event)" accept=".jpg,.jpeg,.png">
+                    </div>
+                    <img src="" id="tempimg" style="margin-bottom: 15px;max-width: 200px;max-height: 300px;" />
+                    <div class="form-group">
                         <label>是否免费<input id="needPay" type="checkbox" name="needPay" value="1" style="margin-left: 5px;" /></label>
                         <label style="margin-left: 10px;">价格:<input id="price" type="text" name="price" value="0" style="width: 40px;" />起飞币</label>
                     </div>
@@ -67,24 +72,38 @@
     </div>
 </body>
 <script type="text/javascript">
+function getBase64(e) {
+    var file = e.target.files[0];
+    var reader = new FileReader();
+    reader.onload = (function(file){
+        return function(e){
+            $('#tempimg')[0].src = this.result;
+        };
+    })(e.target.files[0]);
+    reader.readAsDataURL(file);
+}
 function add_books() {
+    // var file = $("input[name='cover']").prop('files')[0];
+    var data = $('#tempimg')[0].src;
+    console.log(data.length); 
     axios.post('/add', {
             bookname: $("input[name='bookname']").val(),
             author: $("input[name='author']").val(),
             classification: $("input[name='classification']").val(),
             needPay:$('input:checkbox[name="needPay"]:checked').val()||0,
-            price:$("input[name='price']").val()
-            // cover: document.getElementById('cover').files[0]
+            price:$("input[name='price']").val(),
+            cover:data
         }).then(function(response) {
             console.log(response.data.result);
             if (response.data.result == 'ok') {
                 alert('上架成功');
                 window.location.replace('/');
+            } else if (response.data.result == 'imgError') {
+                alert('上传封面失败');
             } else {
                 alert('上架失败');
             }
-        })
-        .catch(function(error) {
+        }).catch(function(error) {
             console.log(error);
         });
 }

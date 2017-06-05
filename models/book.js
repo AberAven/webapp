@@ -12,5 +12,6 @@ module.exports = db.defineModel('books', {
     votes:db.BIGINT,
     classification:db.INTEGER,
     needPay:db.BOOLEAN,
-    price:db.INTEGER
+    price:db.INTEGER,
+    img:db.STRING(10000)
 });

@@ -13,10 +13,9 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/static/js/jquery.cookie.js"></script>
     <script type="text/javascript">
+    const author = {{isauchor}};
     $(document).ready(function() {
-        var author = {{isauchor}};
         var buyed = {{isBuyed}};
-        console.log(author)
         if (!author) {
             $('#add-chapter').remove();
         }
@@ -25,7 +24,21 @@
         }else{
             showBuy(true);
         }
+        getCover();
     });
+
+    function getCover() {
+        axios.get('/cover').
+        then((res)=>{
+            if(res.data.result == 'ok'){
+                $('.img')[0].src = res.data.imgPath;
+            }else{
+                //图片未加载成功的处理
+            }
+        }).catch((err)=>{
+            console.log(err);
+        });
+    }
 
     function showBuy(tag) {
         if(tag){
@@ -36,6 +49,154 @@
             $('#buy').hide();
         }
     }
+    function showChapter(e) {
+        $('#add-chapter-panel').show()
+    }
+    //添加章节
+    function addChapter() {
+        var name = $('#chapter_name').val() || '',
+            content = $('#chapter_content').val() || '';
+        axios.post('/addChapter', {
+            chapterName: name,
+            chapterContent: content
+        }).then(function(res) {
+            if (res.data.result == 'ok') {
+                cancel();
+                window.location.reload();
+            } else {
+                alert('添加失败');
+            }
+        })
+    }
+
+    function cancel() {
+        $('#add-chapter-panel').hide()
+    }
+
+    /**
+    显示内容
+    **/
+    function showContent(event, id) {
+        $('#content-chapter-name').text($('#' + id).find('p').find("a").text());
+        $('#content-content').text($('#' + id).find("p").text());
+        $('.content-panel').show();
+    }
+
+    function dismissContent(e) {
+        $('.content-panel').hide();
+    }
+
+    function back(e) {
+        window.location.replace('/');
+    }
+
+    function collect(e) {
+        axios.post('/collect').
+        then((res) => {
+            if (res.data.result == 'ok') {
+                alert('收藏成功');
+            } else if (res.data.result == 'nologin') {
+                alert('您还没登陆');
+            } else if (res.data.result == 'exist') {
+                alert('你已经收藏');
+            }else{
+                alert('收藏失败');
+            }
+        }).catch((err) => {
+            console.log(err);
+            alert('收藏失败');
+        })
+    }
+
+    function vote(e) {
+        axios.post('/vote').
+        then((res)=>{
+            console.log(res);
+            if(res.data.result == 'ok'){
+                alert('投票成功!');
+                window.location.reload();
+            }else if (res.data.result == 'nologin') {
+                alert('请先登陆');
+            } else if (res.data.result == 'nomoney') {
+                alert('余额不足，请先充值!');
+            } else {
+                alert('投票失败,请重试');
+            }
+        }).catch((err)=>{
+            console.log(err);
+            alert('投票失败,请重试');
+        });
+    }
+
+    function buy(e,price) {
+        axios.post('/buyBook',{
+            price:price
+        }).then(res=>{
+            if (res.data.result == 'ok') {
+                alert('购买成功');
+                showBuy(false);
+            } else if (res.data.result == 'nologin') {
+                alert('您还没登陆');
+                showBuy(true);
+            } else if (res.data.result == 'nomoney') {
+                alert('余额不足，请先充值!');
+                showBuy(true);
+            }else{
+                alert('购买失败');
+                showBuy(true);
+            }
+        }).catch(err=>{
+            console.log(err);
+            alert('购买失败,请重试');
+            showBuy(true);
+        });
+    }
+
+    function showChangeCover(){
+         if(author){
+            $('#changeCover').show();
+        }else{
+            return;
+        }
+    }
+
+    function hideChangeCover(){
+        $('#changeCover').hide();
+    }
+
+    function changeCover(e){
+        var src = $('#tempimg')[0].src;
+        if (!src || src=="") {
+            alert('请选择文件');
+            return;
+        }
+        axios.post('/cover',{
+            cover:src
+        }).then((res)=>{
+            if (res.data.result == 'ok') {
+                alert('修改成功!');
+                hideChangeCover();
+                $('.img')[0].src = src;
+            } else {
+                alert('更改失败');
+            }
+        }).catch((err)=>{
+            alert('更改失败');
+            console.log(err);
+        })
+    }
+
+    function onFileChange(e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        reader.onload = (function(file){
+            return function(e){
+                $('#tempimg')[0].src = this.result;
+            };
+        })(e.target.files[0]);
+        reader.readAsDataURL(file);
+    }
+
     </script>
     <style type="text/css">
     .box1-div {
@@ -118,10 +279,20 @@
 </head>
 
 <body>
+
     <div class="panel panel-default content-panel">
         <h2 id="content-chapter-name" style="margin-bottom: 25px;">章节名称</h2>
         <p id="content-content"></p>
         <button class="btn btn-primary" type="text" id="complete" onclick="dismissContent(event)">完成</button>
+    </div>
+    <div class="panel panel-default add-chapters" id="changeCover">
+        <label style="font-size: 24px;">修改封面</label>
+        <input type="file" name="new_cover" id="new_cover" accept=".jpg,.jpeg,.png" onchange="onFileChange(event)" style="margin-top: 15px;margin-bottom: 15px;">
+        <img src="" style="margin-bottom: 15px;max-width: 200px;max-height: 300px;" id="tempimg">
+        <div class="form-group">
+            <button type="text" class="btn btn-primary" onclick="changeCover(event)">确定</button>
+            <button type="text" class="btn btn-primary" onclick="hideChangeCover()">取消</button>
+        </div>
     </div>
     <div class="panel panel-default add-chapters" id="add-chapter-panel">
         <div class="panel_body">
@@ -144,7 +315,7 @@
     <div class="box1-div">
         <div class="box2-div">
             <div class="img-div">
-                <img src="/static/img/loading.jpg" class="img">
+                <img src="/static/img/loading.jpg" class="img" onclick="showChangeCover()">
             </div>
             <div class="box-name1">
                 <h3>书名:</h3>
@@ -179,109 +350,6 @@
         </div>
     </div>
 </body>
-<script type="text/javascript">
-function showChapter(e) {
-    $('#add-chapter-panel').show()
-}
-//添加章节
-function addChapter() {
-    var name = $('#chapter_name').val() || '',
-        content = $('#chapter_content').val() || '';
-    axios.post('/addChapter', {
-        chapterName: name,
-        chapterContent: content
-    }).then(function(res) {
-        if (res.data.result == 'ok') {
-            cancel();
-            window.location.reload();
-        } else {
-            alert('添加失败');
-        }
-    })
-}
 
-function cancel() {
-    $('#add-chapter-panel').hide()
-}
-
-/**
-显示内容
-**/
-function showContent(event, id) {
-    $('#content-chapter-name').text($('#' + id).find('p').find("a").text());
-    $('#content-content').text($('#' + id).find("p").text());
-    $('.content-panel').show();
-}
-
-function dismissContent(e) {
-    $('.content-panel').hide();
-}
-
-function back(e) {
-    window.location.replace('/');
-}
-
-function collect(e) {
-    axios.post('/collect').
-    then((res) => {
-        if (res.data.result == 'ok') {
-            alert('收藏成功');
-        } else if (res.data.result == 'nologin') {
-            alert('您还没登陆');
-        } else if (res.data.result == 'exist') {
-            alert('你已经收藏');
-        }else{
-            alert('收藏失败');
-        }
-    }).catch((err) => {
-        console.log(err);
-        alert('收藏失败');
-    })
-}
-
-function vote(e) {
-    axios.post('/vote').
-    then((res)=>{
-        console.log(res);
-        if(res.data.result == 'ok'){
-            alert('投票成功!');
-            window.location.reload();
-        }else if (res.data.result == 'nologin') {
-            alert('请先登陆');
-        } else if (res.data.result == 'nomoney') {
-            alert('余额不足，请先充值!');
-        } else {
-            alert('投票失败,请重试');
-        }
-    }).catch((err)=>{
-        console.log(err);
-        alert('投票失败,请重试');
-    });
-}
-
-function buy(e,price) {
-    axios.post('/buyBook',{
-        price:price
-    }).then(res=>{
-        if (res.data.result == 'ok') {
-            alert('购买成功');
-            showBuy(false);
-        } else if (res.data.result == 'nologin') {
-            alert('您还没登陆');
-            showBuy(true);
-        } else if (res.data.result == 'nomoney') {
-            alert('余额不足，请先充值!');
-            showBuy(true);
-        }else{
-            alert('购买失败');
-            showBuy(true);
-        }
-    }).catch(err=>{
-        console.log(err);
-        alert('购买失败,请重试');
-        showBuy(true);
-    });
-}
-</script>
 
 </html>

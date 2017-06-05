@@ -4,6 +4,10 @@
 
 const fs = require('fs');
 
+var multer  = require('multer')
+var upload = multer({ dest: 'static/img/' })
+var type = upload.single('cover');
+
 // add url-route in /controllers:
 
 
